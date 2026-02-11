@@ -410,6 +410,11 @@ public sealed partial class QuicConnection : IAsyncDisposable
                 MsQuicHelpers.SetMsQuicParameter(_handle, QUIC_PARAM_CONN_LOCAL_ADDRESS, localQuicAddress);
             }
 
+            if (options.Disable1RttEncryption)
+            {
+                MsQuicHelpers.SetMsQuicParameter(_handle, QUIC_PARAM_CONN_DISABLE_1RTT_ENCRYPTION, 1);
+            }
+
             _sslConnectionOptions = new SslConnectionOptions(
                 this,
                 isClient: true,

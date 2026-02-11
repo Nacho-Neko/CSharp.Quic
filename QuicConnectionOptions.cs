@@ -210,6 +210,11 @@ public sealed class QuicClientConnectionOptions : QuicConnectionOptions
     public IPEndPoint? LocalEndPoint { get; set; }
 
     /// <summary>
+    /// 1-RTT encryption
+    /// </summary>
+    public bool Disable1RttEncryption { get; set; } = false;
+
+    /// <summary>
     /// Validates the options and potentially sets platform specific defaults.
     /// </summary>
     /// <param name="argumentName">Name of the from the caller.</param>
