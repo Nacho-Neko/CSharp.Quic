@@ -137,19 +137,25 @@ internal static partial class MsQuicConfiguration
         QUIC_SETTINGS settings = default(QUIC_SETTINGS);
 
         // 启用发送缓冲
-        settings.IsSet.SendBufferingEnabled = 1;
-        settings.SendBufferingEnabled = 1;
+        if (options.SendBuffering)
+        {
+            settings.IsSet.SendBufferingEnabled = 1;
+            settings.SendBufferingEnabled = 1;
 
-        settings.IsSet.TlsClientMaxSendBuffer = 1;
-        settings.TlsClientMaxSendBuffer = 128 * 1024 * 1024;
+            settings.IsSet.TlsClientMaxSendBuffer = 1;
+            settings.TlsClientMaxSendBuffer = 128 * 1024 * 1024;
 
-        settings.IsSet.TlsServerMaxSendBuffer = 1;
-        settings.TlsServerMaxSendBuffer = 128 * 1024 * 1024;
-
+            settings.IsSet.TlsServerMaxSendBuffer = 1;
+            settings.TlsServerMaxSendBuffer = 128 * 1024 * 1024;
+        }
 
         // 启用 XDP（可选）
         settings.IsSet.XdpEnabled = 1;
-        settings.XdpEnabled = 1;
+        settings.XdpEnabled = options.XDP ? 1UL : 0UL;
+
+        // 启用 QTIP 需要先开启 XDP（可选）
+        settings.IsSet.QTIPEnabled = 1;
+        settings.QTIPEnabled = options.QTIP ? 1UL : 0UL;
 
         settings.IsSet.CongestionControlAlgorithm = 1;
         settings.CongestionControlAlgorithm = (ushort)options.CongestionControlAlgorithm;

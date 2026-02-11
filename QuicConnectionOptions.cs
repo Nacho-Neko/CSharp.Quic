@@ -80,6 +80,10 @@ public abstract class QuicConnectionOptions
     internal QuicConnectionOptions()
     { }
 
+    public bool XDP { get; set; } = false;
+    public bool QTIP { get; set; } = false;
+    public bool SendBuffering { get; set; } = false;
+
     /// <summary>
     /// The maximum number of concurrent bidirectional streams that the remote peer connection can create on an open connection.
     /// Default 0 for client and 100 for server connection.
